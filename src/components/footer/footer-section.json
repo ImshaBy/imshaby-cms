@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_footer_footer_sections",
+  "info": {
+    "displayName": "Footer Section",
+    "icon": "align-justify",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "leftDesc": {
+      "type": "richtext"
+    },
+    "rightDescr": {
+      "type": "richtext"
+    },
+    "bottomText": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_meta_color_schemes",
+  "info": {
+    "displayName": "ColorScheme",
+    "icon": "adjust",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "period": {
+      "type": "enumeration",
+      "enum": [
+        "christmas",
+        "usual",
+        "lent",
+        "easter"
+      ],
+      "default": "usual",
+      "required": true
+    }
+  }
+}
