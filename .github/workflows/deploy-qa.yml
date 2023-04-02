@@ -29,12 +29,12 @@ jobs:
         registry-url: 'https://npm.pkg.github.com'
     - name: List files
       run: ls -la
-    # - name: Copy to server
-    #   run: |
-    #     rsync -avz -e "ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" dist 63844-1897@${{ secrets.SSH_HOST }}:~/temp
-    - name: Re-install node_modules & re-start server
+    - name: Copy to server
       run: |
-        ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -t 63844-1897@${{ secrets.SSH_HOST }} "cd ~/ROOT && git pull && npm ci && rm -rf dist && mv ~/temp/dist ~/ROOT/ && pm2 restart dist/index.js --time"
+        rsync -avz -e "ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" dist 63844-1897@${{ secrets.SSH_HOST }}:~/temp
+    # - name: Re-install node_modules & re-start server
+    #   run: |
+    #     ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -t 63844-1897@${{ secrets.SSH_HOST }} "cd ~/ROOT && git pull && npm ci && rm -rf dist && mv ~/temp/dist ~/ROOT/ && pm2 restart dist/index.js --time"
 
 
     # - run: npm run build
