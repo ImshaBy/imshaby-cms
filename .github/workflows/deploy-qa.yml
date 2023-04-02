@@ -14,13 +14,17 @@ jobs:
         node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Create ssh-key file
-      run: |
-        mkdir ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -t rsa github.com
+    - name: Install SSH Key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        name: git-to-jelastic
+        known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+        config: |
+          Host *
+            IdentityFile ~/.ssh/git-to-jelastic
+            HostkeyAlgorithms +ssh-rsa
+            PubkeyAcceptedAlgorithms +ssh-rsa
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
