@@ -31,6 +31,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         registry-url: 'https://npm.pkg.github.com'
+    - run: npm ci
+    - run: npm run build
     - name: List files
       run: ls -la
     - name: Copy to server
