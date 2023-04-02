@@ -9,11 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TARGET: qa
-    strategy:
-      matrix:
-        node-version: [14.x]
 
     steps:
+    - uses: actions/checkout@v2
+    
+    - name: Use NodeJS v.14.16.1
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.16.1
+    
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
       with:
@@ -26,15 +30,12 @@ jobs:
             HostkeyAlgorithms +ssh-rsa
             PubkeyAcceptedAlgorithms +ssh-rsa
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-        registry-url: 'https://npm.pkg.github.com'
     - run: npm ci
     - run: npm run build
+    
     - name: List files
       run: ls -la
+    
     - name: Copy to server
       run: |
         rsync -avz -e "ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" dist 63844-1897@${{ secrets.SSH_HOST }}:~/temp
