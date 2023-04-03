@@ -3,13 +3,15 @@ name: QA BOT API env (bot.qa.imsha.by)
 on:
   push:
     branches: [ develop]
+    
+env:
+  TARGET: qa
+  CMS_PORT: ${{ vars.CMS_PORT }}
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    env:
-      TARGET: qa
-      CMS_PORT: ${{ vars.CMS_PORT }}
 
     steps:
     - uses: actions/checkout@v2
