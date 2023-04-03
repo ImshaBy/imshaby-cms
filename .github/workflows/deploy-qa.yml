@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TARGET: qa
-      CMS_PORT: ${{ env.CMS_PORT }}
+      CMS_PORT: ${{ vars.CMS_PORT }}
 
     steps:
     - uses: actions/checkout@v2
