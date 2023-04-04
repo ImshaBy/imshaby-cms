@@ -4,7 +4,8 @@
   "info": {
     "singularName": "point",
     "pluralName": "points",
-    "displayName": "Point"
+    "displayName": "Point",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -26,17 +27,12 @@
       "unique": true
     },
     "Icon": {
-      "allowedTypes": [
-        "images"
-      ],
-      "type": "media",
-      "multiple": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": true
+      "type": "text"
     }
   }
 }
