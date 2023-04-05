@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_empty_points",
+  "info": {
+    "displayName": "Point"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

@@ -78,9 +78,14 @@
       }
     },
     "points": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::point.point"
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "empty.point"
     }
   }
 }
