@@ -24,4 +24,3 @@ services:
       - ./public/uploads:/opt/app/public/uploads
     ports:
       - '1337:1337'
-    network_mode: 'host'
