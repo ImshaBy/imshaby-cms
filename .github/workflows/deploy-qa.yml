@@ -19,7 +19,7 @@ jobs:
     - name: Use NodeJS v.18.16.1
       uses: actions/setup-node@v3
       with:
-        node-version: 18.16.1
+        node-version: 18
     
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
