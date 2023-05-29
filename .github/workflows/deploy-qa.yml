@@ -33,9 +33,18 @@ jobs:
             HostkeyAlgorithms +ssh-rsa
             PubkeyAcceptedAlgorithms +ssh-rsa
 
-    - run: npm ci
-    - run: NODE_ENV=production npm run build
-    
+    - name: Run install
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: install # will run `yarn install` command
+
+    - name: Run build
+      uses: borales/actions-yarn@v4
+      with:
+        cmd: build # will run `yarn install` command
+      env:
+        NODE_ENV: production # if needed
+
     - name: List files
       run: ls -la
     
