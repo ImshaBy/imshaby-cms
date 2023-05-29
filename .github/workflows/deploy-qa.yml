@@ -16,10 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Use NodeJS v.14.16.1
+    - name: Use NodeJS v.18.16.1
       uses: actions/setup-node@v1
       with:
-        node-version: 14.16.1
+        node-version: 18.16.1
     
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2
