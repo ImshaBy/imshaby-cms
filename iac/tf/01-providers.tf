@@ -10,8 +10,11 @@ terraform {
     region     = "ru-central1"
     key        = "imshaby-cms/production/terraform.tfstate"
     access_key = ${ACCESS_KEY_ID}
+
     secret_key = ${ACCESS_SECRET_KEY}
+
     dynamodb_endpoint =  ${DYNAMODB_ENDPOINT}
+
     dynamodb_table    = "state-lock-table"
     skip_region_validation      = true
     skip_credentials_validation = true
