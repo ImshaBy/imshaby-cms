@@ -71,6 +71,8 @@ jobs:
       ACCESS_KEY : ${{secrets.SA_ACCESS_KEY}}
       TF_BACKEND_KEY : ${{vars.TF_BACKEND_KEY}}
       TR_BACKEND_BUCKET_NAME : ${{vars.TR_BACKEND_BUCKET_NAME}}
+      ACCESS_KEY_ID: ${{secrets.ACCESS_KEY_ID}}
+      ACCESS_SECRET_KEY: ${{secrets.ACCESS_SECRET_KEY}}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -101,8 +103,6 @@ jobs:
           API_TOKEN_SALT: ${{secrets.API_TOKEN_SALT}}
           APP_KEYS: ${{secrets.APP_KEYS}}
           NODE_ENV: ${{vars.NODE_ENV}}
-          ACCESS_KEY_ID: ${{secrets.SA_ACCESS_KEY_ID}}
-          ACCESS_SECRET_KEY: ${{secrets.SA_ACCESS_SECRET_KEY}}
           BUCKET_NAME: ${{vars.BUCKET_NAME}}
           BUCKET_URL: ${{vars.BUCKET_URL}}
           TRANSFER_TOKEN_SALT: ${{secrets.TRANSFER_TOKEN_SALT}}
@@ -126,8 +126,8 @@ jobs:
           API_TOKEN_SALT: ${{secrets.API_TOKEN_SALT}}
           APP_KEYS: ${{secrets.APP_KEYS}}
           NODE_ENV: ${{vars.NODE_ENV}}
-          ACCESS_KEY_ID: ${{secrets.SA_ACCESS_KEY_ID}}
-          ACCESS_SECRET_KEY: ${{secrets.SA_ACCESS_SECRET_KEY}}
+          ACCESS_KEY_ID: ${{secrets.ACCESS_KEY_ID}}
+          ACCESS_SECRET_KEY: ${{secrets.ACCESS_SECRET_KEY}}
           BUCKET_NAME: ${{vars.BUCKET_NAME}}
           BUCKET_URL: ${{vars.BUCKET_URL}}
           TRANSFER_TOKEN_SALT: ${{secrets.TRANSFER_TOKEN_SALT}}
@@ -138,8 +138,8 @@ jobs:
           cat envs/tf_env.tfvars
       - name: Generate new providers file, remove old one
         env:
-          ACCESS_KEY_ID: ${{secrets.SA_ACCESS_KEY_ID}}
-          ACCESS_SECRET_KEY: ${{secrets.SA_ACCESS_SECRET_KEY}}
+          # ACCESS_KEY_ID: ${{secrets.ACCESS_KEY_ID}}
+          # ACCESS_SECRET_KEY: ${{secrets.ACCESS_SECRET_KEY}}
         run: |
           cd iac
           chmod +x replace-vars.sh
