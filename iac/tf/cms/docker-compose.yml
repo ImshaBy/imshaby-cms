@@ -13,6 +13,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
       APP_KEYS: ${APP_KEYS}
       NODE_ENV: ${NODE_ENV}
       ACCESS_KEY_ID: ${ACCESS_KEY_ID}
@@ -20,12 +21,12 @@ services:
       BUCKET_NAME: ${BUCKET_NAME}
       BUCKET_URL: ${BUCKET_URL}
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
-    volumes:
-      - ./config:/opt/app/config
-      - ./src:/opt/app/src
-      - ./package.json:/opt/package.json
-      - ./yarn.lock:/opt/yarn.lock
-      - ./.env:/opt/app/.env
-      - ./public/uploads:/opt/app/public/uploads
+    # volumes:
+    #   - ./config:/opt/app/config
+    #   - ./src:/opt/app/src
+    #   - ./package.json:/opt/package.json
+    #   - ./yarn.lock:/opt/yarn.lock
+    #   - ./.env:/opt/app/.env
+    #   - ./public/uploads:/opt/app/public/uploads
     ports:
-      - '1337:1337'
+      - '80:1337'
