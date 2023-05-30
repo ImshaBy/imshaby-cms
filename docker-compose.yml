@@ -15,6 +15,10 @@ services:
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       APP_KEYS: ${APP_KEYS}
       NODE_ENV: ${NODE_ENV}
+      ACCESS_KEY_ID: ${ACCESS_KEY_ID}
+      ACCESS_SECRET_KEY: ${ACCESS_SECRET_KEY}
+      BUCKET_NAME: ${BUCKET_NAME}
+      BUCKET_URL: ${BUCKET_URL}
     volumes:
       - ./config:/opt/app/config
       - ./src:/opt/app/src
