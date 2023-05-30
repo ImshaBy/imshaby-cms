@@ -8,6 +8,8 @@ on:
   workflow_dispatch:
   push:
     branches: [ terraform-yc ]
+  tags:
+  - v*
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,9 +36,8 @@ jobs:
           CR_REPOSITORY: imshaby-cms
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          pwd
-  #         docker build -f ./Dockerfile.prod -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
-  #         docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          docker build -f ./Dockerfile.prod -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
   # # This workflow contains a single job called "deployment"
   deployment:
     # The type of runner that the job will run on
@@ -163,23 +164,18 @@ jobs:
           export YC_TOKEN=$(yc iam create-token) export YC_CLOUD_ID=$(yc config get cloud-id) export YC_FOLDER_ID=$(yc config get folder-id)
           terraform plan --var-file ../envs/tf_env.tfvars -no-color
 #        continue-on-error: true
-#       - name: Terraform Apply
-#         run: |
-#           cd iac/tf
-#           export YC_TOKEN=$(yc iam create-token) export YC_CLOUD_ID=$(yc config get cloud-id) export YC_FOLDER_ID=$(yc config get folder-id)
-#          terraform apply --var-file ../envs/production.tfvars -no-color -auto-approve
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: NikDark,childRon
+      - name: Terraform Apply
+        run: |
+          cd iac/tf
+          export YC_TOKEN=$(yc iam create-token) export YC_CLOUD_ID=$(yc config get cloud-id) export YC_FOLDER_ID=$(yc config get folder-id)
+         terraform apply --var-file ../envs/tf_env.tfvars -no-color -auto-approve
 
 
 
 #      - run: echo ${{ steps.plan.outputs.stdout }}
 #      - run: echo ${{ steps.plan.outputs.stderr }}
 #      - run: echo ${{ steps.plan.outputs.exitcode }}
-
-#      - name: Build, tag, and push image to Yandex Cloud Container Registry
-#        env:
-#          CR_REGISTRY: crp8o64j2cl644b4pjki
-#          CR_REPOSITORY: imshaby-api
-#          IMAGE_TAG: ${{ github.sha }}
-#        run: |
-#          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
-#          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
