@@ -167,7 +167,8 @@ jobs:
       - uses: trstringer/manual-approval@v1
         with:
           secret: ${{ github.TOKEN }}
-          approvers: NikDark,childRon
+          approvers: NikDark, childRon
+
       - name: Terraform Apply
         run: |
           cd iac/tf
