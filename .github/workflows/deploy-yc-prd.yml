@@ -198,10 +198,9 @@ jobs:
       TR_BACKEND_BUCKET_NAME : ${{vars.TR_BACKEND_BUCKET_NAME}}
       ACCESS_KEY_ID: ${{secrets.ACCESS_KEY_ID}}
       ACCESS_SECRET_KEY: ${{secrets.ACCESS_SECRET_KEY}}
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Terraform Apply
         run: |
           cd iac/tf
           export YC_TOKEN=$(yc iam create-token) export YC_CLOUD_ID=$(yc config get cloud-id) export YC_FOLDER_ID=$(yc config get folder-id)
-         terraform apply --var-file ../envs/tf_env.tfvars -no-color -auto-approve
+          terraform apply --var-file ../envs/tf_env.tfvars -no-color -auto-approve
