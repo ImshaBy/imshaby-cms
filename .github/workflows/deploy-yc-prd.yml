@@ -164,11 +164,12 @@ jobs:
           export YC_TOKEN=$(yc iam create-token) export YC_CLOUD_ID=$(yc config get cloud-id) export YC_FOLDER_ID=$(yc config get folder-id)
           terraform plan --var-file ../envs/tf_env.tfvars -no-color
 #        continue-on-error: true
-      - uses: trstringer/manual-approval@v1
+      - name: Wait for approval
+        uses: trstringer/manual-approval@v1
         with:
-          secret: ${{ github.TOKEN }}
-          approvers: NikDark, childRon
-
+          secret:  ${{ github.TOKEN }}
+          approvers: childRon
+          minimum-approvals: 1
       - name: Terraform Apply
         run: |
           cd iac/tf
