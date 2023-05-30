@@ -34,9 +34,10 @@ jobs:
           CR_REPOSITORY: imshaby-cms
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -f ./Dockerfile.prod -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
-          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
-  # This workflow contains a single job called "deployment"
+          pwd
+  #         docker build -f ./Dockerfile.prod -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
+  #         docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+  # # This workflow contains a single job called "deployment"
   deployment:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -144,6 +145,10 @@ jobs:
           chmod +x replace-vars.sh
           bash replace-vars.sh tf/01-providers.tf
           rm -f tf/01-providers.tf
+          cat tf/tf_01-providers.tf
+          cd tf
+          ls -la
+
 
 
       - name: Set up Terraform
