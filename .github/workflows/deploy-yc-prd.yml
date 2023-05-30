@@ -28,14 +28,14 @@ jobs:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
 
 
-      - name: Build, tag, and push image to Yandex Cloud Container Registry
-        env:
-          CR_REGISTRY: crp8o64j2cl644b4pjki
-          CR_REPOSITORY: imshaby-cms
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -f ./Dockerfile.prod -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
-          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+      # - name: Build, tag, and push image to Yandex Cloud Container Registry
+      #   env:
+      #     CR_REGISTRY: crp8o64j2cl644b4pjki
+      #     CR_REPOSITORY: imshaby-cms
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   run: |
+      #     docker build -f ./Dockerfile.prod -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
+      #     docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
   # This workflow contains a single job called "deployment"
   deployment:
     # The type of runner that the job will run on
@@ -109,7 +109,7 @@ jobs:
           cd iac
           chmod +x replace-vars.sh
           bash replace-vars.sh tf/cms/docker-compose.yml
-
+          cat tf/cms/tf_docker-compose.yml
       - name: Generate terraform env file
         env:
           DOCKER_API_IMAGE: 'cr.yandex/${{env.CR_REGISTRY}}/${{env.CR_REPOSITORY}}:${{env.IMAGE_TAG}}'
@@ -134,6 +134,7 @@ jobs:
           cd iac
           chmod +x replace-vars.sh
           bash replace-vars.sh envs/env.tfvars
+          cat envs/tf_env.tfvars
 
 
 #       - name: Set up Terraform
