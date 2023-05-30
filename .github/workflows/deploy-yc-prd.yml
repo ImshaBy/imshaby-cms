@@ -100,8 +100,8 @@ jobs:
           API_TOKEN_SALT: ${{secrets.API_TOKEN_SALT}}
           APP_KEYS: ${{secrets.APP_KEYS}}
           NODE_ENV: ${{vars.NODE_ENV}}
-          ACCESS_KEY_ID: ${{secrets.ACCESS_KEY_ID}}
-          ACCESS_SECRET_KEY: ${{secrets.ACCESS_SECRET_KEY}}
+          ACCESS_KEY_ID: ${{secrets.SA_ACCESS_KEY_ID}}
+          ACCESS_SECRET_KEY: ${{secrets.SA_ACCESS_SECRET_KEY}}
           BUCKET_NAME: ${{vars.BUCKET_NAME}}
           BUCKET_URL: ${{vars.BUCKET_URL}}
           TRANSFER_TOKEN_SALT: ${{secrets.TRANSFER_TOKEN_SALT}}
@@ -135,6 +135,15 @@ jobs:
           chmod +x replace-vars.sh
           bash replace-vars.sh envs/env.tfvars
           cat envs/tf_env.tfvars
+      - name: Generate new providers file, remove old one
+        env:
+          ACCESS_KEY_ID: ${{secrets.SA_ACCESS_KEY_ID}}
+          ACCESS_SECRET_KEY: ${{secrets.SA_ACCESS_SECRET_KEY}}
+        run: |
+          cd iac
+          chmod +x replace-vars.sh
+          bash replace-vars.sh tf/01-providers.tf
+          rm -f tf/01-providers.tf
 
 
       - name: Set up Terraform
