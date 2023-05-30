@@ -9,9 +9,9 @@ terraform {
     bucket     = "tf-bucket-imshaby"
     region     = "ru-central1"
     key        = "imshaby-cms/production/terraform.tfstate"
-    access_key = "${ACCESS_KEY_ID}"
+    access_key = "${ACCESS_KEY}"
 
-    secret_key = "${ACCESS_SECRET_KEY}"
+    secret_key = "${SECRET_KEY}"
 
     dynamodb_endpoint =  "${DYNAMODB_ENDPOINT}"
 
