@@ -1,67 +1,59 @@
-name: QA BOT API env (bot.qa.imsha.by)
+# name: QA BOT API env (bot.qa.imsha.by)
 
-on:
-  push:
-    branches: [ develop]
-    
-env:
-  TARGET: qa
-  CMS_PORT: ${{ vars.CMS_PORT }}
+# on:
+#   push:
+#     branches: [ develop]
 
-jobs:
-  build:
+# env:
+#   TARGET: qa
+#   CMS_PORT: ${{ vars.CMS_PORT }}
 
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
 
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Use NodeJS v.18.16.1
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
-    
-    - name: Install SSH Key
-      uses: shimataro/ssh-key-action@v2
-      with:
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        name: git-to-jelastic
-        known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
-        config: |
-          Host *
-            IdentityFile ~/.ssh/git-to-jelastic
-            HostkeyAlgorithms +ssh-rsa
-            PubkeyAcceptedAlgorithms +ssh-rsa
+#     runs-on: ubuntu-latest
 
-    - name: Run install
-      uses: borales/actions-yarn@v4
-      with:
-        cmd: install # will run `yarn install` command
+#     steps:
+#     - uses: actions/checkout@v2
 
-    - name: Run build
-      uses: borales/actions-yarn@v4
-      with:
-        cmd: build # will run `yarn install` command
-      env:
-        NODE_ENV: production # if needed
+#     - name: Use NodeJS v.14.16.1
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: 14.16.1
 
-    - name: List files
-      run: ls -la
-    
-    - name: Copy to server
-      run: rsync -avz --rsh="ssh -o StrictHostKeyChecking=no -i ~/.ssh/git-to-jelastic -p3022" build 63844-1897@${{ secrets.SSH_HOST }}:~/temp
-    # - name: Re-install node_modules & re-start server
-    #   run: |
-    #     ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -t 63844-1897@${{ secrets.SSH_HOST }} "cd ~/ROOT && git pull && npm ci && rm -rf dist && mv ~/temp/dist ~/ROOT/ && pm2 restart dist/index.js --time"
+#     - name: Install SSH Key
+#       uses: shimataro/ssh-key-action@v2
+#       with:
+#         key: ${{ secrets.SSH_PRIVATE_KEY }}
+#         name: git-to-jelastic
+#         known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+#         config: |
+#           Host *
+#             IdentityFile ~/.ssh/git-to-jelastic
+#             HostkeyAlgorithms +ssh-rsa
+#             PubkeyAcceptedAlgorithms +ssh-rsa
+
+#     - run: npm ci
+#     - run: NODE_ENV=production npm run build
+
+#     - name: List files
+#       run: ls -la
+
+#     - name: Copy to server
+#       run: rsync -avz --rsh="ssh -o StrictHostKeyChecking=no -i ~/.ssh/git-to-jelastic -p3022" build 63844-1897@${{ secrets.SSH_HOST }}:~/temp
+#     # - name: Re-install node_modules & re-start server
+#     #   run: |
+#     #     ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -t 63844-1897@${{ secrets.SSH_HOST }} "cd ~/ROOT && git pull && npm ci && rm -rf dist && mv ~/temp/dist ~/ROOT/ && pm2 restart dist/index.js --time"
 
 
-    # - run: npm run build
+#     # - run: npm run build
 
-#    - run: npm publish -- for creation package
+# #    - run: npm publish -- for creation package
 
 
-    # - name: List files
-    #   run: ls -la
-    # - name: Copy to server
-    #   run: rsync -avz --delete-before -e "ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" dist/ 58336-1897@${{ secrets.SSH_HOST }}:~/ROOT
+#     # - name: List files
+#     #   run: ls -la
+#     # - name: Copy to server
+#     #   run: rsync -avz --delete-before -e "ssh -p 3022 -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" dist/ 58336-1897@${{ secrets.SSH_HOST }}:~/ROOT
+
 
